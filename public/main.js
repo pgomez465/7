@@ -26,6 +26,10 @@ navigator.mediaDevices.getUserMedia({
             return peer
         }
 
+        function RemoveVideo(){
+            document.getElementById("peerVideo").remove();
+        }
+
         //for peer of type init
         function MakePeer(){
             client.gotAnswer = false
@@ -59,6 +63,7 @@ navigator.mediaDevices.getUserMedia({
             video.srcObject = stream
             video.class = 'embed-responsive-item'
             document.querySelector('#peerDiv').appendChild(video)
+            video.play()
         }
 
         function SessionActive(){
@@ -69,6 +74,7 @@ navigator.mediaDevices.getUserMedia({
         socket.on('BackAnswer', SignalAnswer)
         socket.on('SessionActive', SessionActive)
         socket.on('CreatePeer', MakePeer)
+        socket.on('RemoveVideo', RemoveVideo)
 
     })
     .catch(err => document.write(err))
